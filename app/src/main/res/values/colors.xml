@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Theme Colors for Dashboard/Home -->
+    <color name="primary">#5850DD</color>
+    <color name="primary_soft">#F0EFFF</color>
+    <color name="hero">#EEECFF</color>
+    <color name="icon_bg">#F1F5F9</color>
+
+    <color name="text_primary">#1C2430</color>
+    <color name="text_secondary">#8B95A5</color>
+    <color name="border_stroke">#E2E8F0</color>
+    <color name="bg_main">#F8FAFC</color>
 </resources>

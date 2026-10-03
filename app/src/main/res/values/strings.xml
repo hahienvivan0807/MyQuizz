@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">MyQuizz</string>
+    <string name="hero_title">Tạo câu hỏi cho riêng bạn hoặc bắt đầu từ tài liệu có sẵn</string>
+    <string name="btn_create_quiz">Tạo Quiz mới</string>
+    <string name="title_my_quiz">Quiz của tôi</string>
+    <string name="subtitle_my_quiz">12 Quiz · 3 nháp</string>
+    <string name="title_folder">Thư mục</string>
+    <string name="subtitle_folder">4 mục · 18 tài liệu</string>
+    <string name="section_recent">Gần đây</string>
+    <string name="chip_all">Tất cả</string>
+    <string name="chip_quiz">Quiz</string>
+    <string name="chip_document">Tài liệu</string>
+    <string name="section_your_folders">Thư mục của bạn</string>
+    <string name="nav_home">Trang chủ</string>
+    <string name="folder_english">Tiếng Anh</string>
+    <string name="folder_english_sub">8 tài liệu</string>
+    <string name="folder_science">Khoa học tự nhiên</string>
+    <string name="folder_science_sub">6 tài liệu</string>
+    <string name="folder_term_exam">Ôn tập học kỳ</string>
+    <string name="folder_term_exam_sub">4 tài liệu</string>
+
+    <string name="recent_item1_title">Ôn tập Sinh học 10 · Tế bào</string>
+    <string name="recent_item1_sub">15 câu hỏi · Khoa học tự nhiên</string>
+    <string name="recent_item2_title">Tổng hợp ngữ pháp tiếng Anh</string>
+    <string name="recent_item2_sub">PDF · 24 trang · 2,4 MB</string>
+    <string name="recent_item3_title">Đề cương ôn tập học kỳ I</string>
+    <string name="recent_item3_sub">DOCX · 12 trang · 840 KB</string>
 </resources>

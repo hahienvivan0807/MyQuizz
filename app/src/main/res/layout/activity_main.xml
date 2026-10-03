@@ -146,18 +146,6 @@
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Quên mật khẩu -->
-            <TextView
-                android:id="@+id/forgotPasswordText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginBottom="28dp"
-                android:padding="4dp"
-                android:text="Quên mật khẩu?"
-                android:textColor="#2F7CF6"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
             <!-- Nút đăng nhập -->
             <com.google.android.material.button.MaterialButton

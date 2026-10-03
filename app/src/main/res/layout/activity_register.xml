@@ -68,43 +68,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Họ và tên -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Họ và tên"
-                android:textColor="#1C2430"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fullNameLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxBackgroundColor="#F8FAFC"
-                app:boxCornerRadiusBottomEnd="14dp"
-                app:boxCornerRadiusBottomStart="14dp"
-                app:boxCornerRadiusTopEnd="14dp"
-                app:boxCornerRadiusTopStart="14dp"
-                app:boxStrokeColor="#E2E8F0"
-                app:boxStrokeWidth="1dp"
-                app:hintEnabled="false"
-                app:startIconDrawable="@drawable/ic_person"
-                app:startIconTint="#8B95A5">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fullNameInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nhập họ và tên của bạn"
-                    android:inputType="textPersonName|textCapWords"
-                    android:textColor="#1C2430"
-                    android:textColorHint="#9AA3B1"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email -->
             <TextView
@@ -224,32 +187,6 @@
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Đồng ý điều khoản -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:gravity="top"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/termsCheckbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:buttonTint="#2F7CF6"
-                    android:checked="true" />
-
-                <TextView
-                    android:id="@+id/termsText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:lineSpacingExtra="2dp"
-                    android:text="Tôi đồng ý với Điều khoản sử dụng &amp; Chính sách bảo mật"
-                    android:textColor="#5A6472"
-                    android:textSize="13sp" />
-            </LinearLayout>
 
             <!-- Nút đăng ký -->
             <com.google.android.material.button.MaterialButton
@@ -264,33 +201,6 @@
                 android:textStyle="bold"
                 app:cornerRadius="14dp"
                 app:elevation="0dp" />
-        </LinearLayout>
-
-        <!-- Khối đã có tài khoản -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đã có tài khoản? "
-                android:textColor="#8B95A5"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/loginText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="2dp"
-                android:text="Đăng nhập"
-                android:textColor="#2F7CF6"
-                android:textSize="14sp"
-                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
