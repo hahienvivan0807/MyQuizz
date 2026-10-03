@@ -41,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         DN_emailInput = findViewById(R.id.emailInput);
         DN_passwordInput = findViewById(R.id.passwordInput);
         btnDangNhap = findViewById(R.id.loginButton);
+
+        // Đăng ký sự kiện click cho nút Đăng nhập
+        btnDangNhap.setOnClickListener(v -> DangNhap());
+
+        // Chuyển sang DangKyActivity khi bấm "Đăng ký ngay"
+        android.widget.TextView signUpText = findViewById(R.id.signUpText);
+        if (signUpText != null) {
+            signUpText.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, com.example.myquizz.SqlLite.DangKyActivity.class);
+                startActivity(intent);
+            });
+        }
     }
     private void DangNhap(){
         String taiKhoan = DN_emailInput.getText() != null ? DN_emailInput.getText().toString().trim() : "";
@@ -54,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         if (isMatch) {
             Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(MainActivity.this, He_thong.class);
+            Intent intent = new Intent(MainActivity.this, TrangChu_Activity.class);
             startActivity(intent);
             finish();
         } else {

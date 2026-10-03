@@ -28,6 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_EMAIL + " TEXT "
                 + ");";
         db.execSQL(createTable);
+        // 2. Thêm tài khoản ảo admin
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, "admin");
+        values.put(COLUMN_PASSWORD, "123");
+        values.put(COLUMN_EMAIL, "admin@gmail.com");
+
+        db.insert(TABLE_NAME, null, values);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
