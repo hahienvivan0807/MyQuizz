@@ -25,6 +25,15 @@
             android:name=".activity.TrangChu_Activity"
             android:exported="false" />
         <activity
+            android:name=".activity.QuanLyThuMucActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChiTietThuMucActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NhapCauHoiActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.DangKyActivity"
             android:exported="false" />
         <activity
