@@ -1,4 +1,4 @@
-package com.example.myquizz;
+package com.example.myquizz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myquizz.R;
 import com.example.myquizz.SqlLite.DatabaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
-// Khai báo các ID
-    TextInputEditText DN_emailInput,DN_passwordInput;
+    // Khai báo các ID
+    TextInputEditText DN_emailInput, DN_passwordInput;
     Button btnDangNhap;
     DatabaseHelper dbHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         AddViews();
     }
+
     private void AddViews() {
-        // tìm các id dăng nhập
+        // Tìm các id đăng nhập
         DN_emailInput = findViewById(R.id.emailInput);
         DN_passwordInput = findViewById(R.id.passwordInput);
         btnDangNhap = findViewById(R.id.loginButton);
@@ -49,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
         android.widget.TextView signUpText = findViewById(R.id.signUpText);
         if (signUpText != null) {
             signUpText.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, com.example.myquizz.SqlLite.DangKyActivity.class);
+                Intent intent = new Intent(MainActivity.this, DangKyActivity.class);
                 startActivity(intent);
             });
         }
     }
-    private void DangNhap(){
+
+    private void DangNhap() {
         String taiKhoan = DN_emailInput.getText() != null ? DN_emailInput.getText().toString().trim() : "";
         String matKhau = DN_passwordInput.getText() != null ? DN_passwordInput.getText().toString().trim() : "";
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!", Toast.LENGTH_SHORT).show();
             return;
         }
+
         boolean isMatch = dbHelper.checkLogin(taiKhoan, matKhau);
         if (isMatch) {
             Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
