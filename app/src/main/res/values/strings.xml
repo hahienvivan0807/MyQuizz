@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MyQuizz</string>
+    <string name="brand_title">EduLand</string>
+    <string name="brand_subtitle">Không gian cá nhân</string>
+    <string name="avatar_placeholder">MA</string>
     <string name="hero_title">Tạo câu hỏi cho riêng bạn hoặc bắt đầu từ tài liệu có sẵn</string>
     <string name="btn_create_quiz">Tạo Quiz mới</string>
     <string name="title_my_quiz">Quiz của tôi</string>
@@ -12,12 +15,54 @@
     <string name="chip_document">Tài liệu</string>
     <string name="section_your_folders">Thư mục của bạn</string>
     <string name="nav_home">Trang chủ</string>
+    <string name="nav_history">Lịch sử</string>
+
     <string name="folder_english">Tiếng Anh</string>
     <string name="folder_english_sub">8 tài liệu</string>
     <string name="folder_science">Khoa học tự nhiên</string>
     <string name="folder_science_sub">6 tài liệu</string>
     <string name="folder_term_exam">Ôn tập học kỳ</string>
     <string name="folder_term_exam_sub">4 tài liệu</string>
+    <string name="folder_unclassified">Chưa phân loại</string>
+    <string name="folder_unclassified_sub">0 tài liệu</string>
+
+    <string name="btn_see_all">Xem tất cả</string>
+    <string name="btn_import_document">Nhập tài liệu</string>
+
+    <!-- Trang Chi tiết Thư mục Tiếng Anh -->
+    <string name="back_all_folders">Tất cả thư mục</string>
+    <string name="hint_search_question_set">Tìm bộ câu hỏi</string>
+    <string name="btn_create_question_set">Tạo bộ câu hỏi</string>
+    <string name="section_question_sets">Bộ câu hỏi</string>
+    <string name="qset1_title">Từ vựng: Cuộc sống hằng ngày</string>
+    <string name="qset1_sub">20 câu hỏi</string>
+    <string name="qset2_title">Ngữ pháp: Thì hiện tại đơn</string>
+    <string name="qset2_sub">15 câu hỏi</string>
+    <string name="qset3_title">Giao tiếp: Chào hỏi cơ bản</string>
+    <string name="qset3_sub">12 câu hỏi</string>
+    <string name="qset4_title">Ôn tập: Tiếng Anh A2</string>
+    <string name="qset4_sub">30 câu hỏi</string>
+
+    <!-- Trang Tạo bộ câu hỏi (Nhập thủ công) -->
+    <string name="back_create_question_set">Tạo bộ câu hỏi</string>
+    <string name="title_manual_question">Nhập câu hỏi thủ công</string>
+    <string name="subtitle_manual_question">Soạn câu hỏi và chọn đáp án đúng.</string>
+    <string name="label_question_num_1">Câu 1</string>
+    <string name="label_question_text">Câu hỏi</string>
+    <string name="hint_question_content">Nhập nội dung câu hỏi…</string>
+    <string name="label_answers">Đáp án</string>
+    <string name="label_correct_answer">Đúng</string>
+    <string name="sub_select_correct_answer">Tích ô bên phải để chọn đáp án đúng.</string>
+    <string name="letter_a">A</string>
+    <string name="letter_b">B</string>
+    <string name="letter_c">C</string>
+    <string name="letter_d">D</string>
+    <string name="hint_answer_a">Nhập đáp án A</string>
+    <string name="hint_answer_b">Nhập đáp án B</string>
+    <string name="hint_answer_c">Nhập đáp án C</string>
+    <string name="hint_answer_d">Nhập đáp án D</string>
+    <string name="btn_add_more_question">Tạo thêm câu hỏi</string>
+    <string name="btn_finish">Hoàn thành</string>
 
     <string name="recent_item1_title">Ôn tập Sinh học 10 · Tế bào</string>
     <string name="recent_item1_sub">15 câu hỏi · Khoa học tự nhiên</string>

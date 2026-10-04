@@ -1,5 +1,6 @@
 package com.example.myquizz.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -51,6 +52,33 @@ public class TrangChu_Activity extends AppCompatActivity {
 
             vatPhamAdapter = new VatPhamAdapter(this, danhSachVatPham);
             rvVatPham.setAdapter(vatPhamAdapter);
+        }
+
+        // Chuyển sang trang Quản lý thư mục
+        android.view.View cardFolder = findViewById(R.id.cardFolder);
+        android.view.View navFolders = findViewById(R.id.navFolders);
+
+        if (cardFolder != null) {
+            cardFolder.setOnClickListener(v -> {
+                Intent intent = new Intent(TrangChu_Activity.this, QuanLyThuMucActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        if (navFolders != null) {
+            navFolders.setOnClickListener(v -> {
+                Intent intent = new Intent(TrangChu_Activity.this, QuanLyThuMucActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // Chuyển sang trang Tạo Quiz / Nhập câu hỏi
+        android.view.View btnCreateQuiz = findViewById(R.id.btnCreateQuiz);
+        if (btnCreateQuiz != null) {
+            btnCreateQuiz.setOnClickListener(v -> {
+                Intent intent = new Intent(TrangChu_Activity.this, NhapCauHoiActivity.class);
+                startActivity(intent);
+            });
         }
     }
 
