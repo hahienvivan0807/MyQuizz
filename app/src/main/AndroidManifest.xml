@@ -27,6 +27,9 @@
         <activity
             android:name=".activity.DangKyActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.TaoQuizActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.example.myquizz.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class TrangChu_Activity extends AppCompatActivity {
     private ThuMucController thuMucController;
 
     private TextView tvSubtitleMyQuiz, tvSubtitleFolder;
+    private View btnCreateQuiz, cardHero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,18 @@ public class TrangChu_Activity extends AppCompatActivity {
         rvVatPham = findViewById(R.id.recyclerViewVatPham);
         tvSubtitleMyQuiz = findViewById(R.id.tvSubtitleMyQuiz);
         tvSubtitleFolder = findViewById(R.id.tvSubtitleFolder);
+        btnCreateQuiz = findViewById(R.id.btnCreateQuiz);
+        cardHero = findViewById(R.id.cardHero);
+
+        // Sự kiện bấm nút Tạo Quiz
+        View.OnClickListener openTaoQuizListener = v -> {
+            Intent intent = new Intent(TrangChu_Activity.this, TaoQuizActivity.class);
+            startActivity(intent);
+        };
+
+        if (btnCreateQuiz != null) {
+            btnCreateQuiz.setOnClickListener(openTaoQuizListener);
+        }
 
         // Cập nhật thống kê số lượng từ CSDL
         capNhatThongKe();

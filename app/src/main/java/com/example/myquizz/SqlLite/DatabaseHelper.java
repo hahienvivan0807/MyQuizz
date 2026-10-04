@@ -16,10 +16,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // THÔNG TIN CƠ SỞ DỮ LIỆU
     // =========================================================================
     private static final String DATABASE_NAME = "MyQuiz.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        // Bật hỗ trợ Khóa ngoại trong SQLite
+        db.setForeignKeyConstraintsEnabled(true);
     }
 
     // =========================================================================
@@ -29,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // ---------------------------------------------------------------------
-        // 1. ĐỊNH NGHĨA BẢNG NGƯỜI DÙNG (users)
+        // 1. BẢNG NGƯỜI DÙNG (users)
         // ---------------------------------------------------------------------
         String createUsers = "CREATE TABLE IF NOT EXISTS users ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -47,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("users", null, admin);
 
         // ---------------------------------------------------------------------
-        // 2. ĐỊNH NGHĨA BẢNG VẬT PHẨM / QUIZ (vat_pham)
+        // 2. BẢNG VẬT PHẨM (vat_pham)
         // ---------------------------------------------------------------------
         String createVatPham = "CREATE TABLE IF NOT EXISTS vat_pham ("
                 + "ma_so INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -56,7 +63,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ");";
         db.execSQL(createVatPham);
 
-        // Chèn các Quiz mẫu ban đầu nếu bảng còn rỗng
         Cursor cVatPham = db.rawQuery("SELECT COUNT(*) FROM vat_pham", null);
         if (cVatPham != null) {
             cVatPham.moveToFirst();
@@ -68,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         // ---------------------------------------------------------------------
-        // 3. ĐỊNH NGHĨA BẢNG THƯ MỤC (thu_muc)
+        // 3. BẢNG THƯ MỤC (thu_muc)
         // ---------------------------------------------------------------------
         String createThuMuc = "CREATE TABLE IF NOT EXISTS thu_muc ("
                 + "ma_thu_muc INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -76,7 +82,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ");";
         db.execSQL(createThuMuc);
 
-        // Chèn các Thư mục mẫu ban đầu nếu bảng còn rỗng
         Cursor cThuMuc = db.rawQuery("SELECT COUNT(*) FROM thu_muc", null);
         if (cThuMuc != null) {
             cThuMuc.moveToFirst();
@@ -87,11 +92,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             cThuMuc.close();
         }
+
+        // ---------------------------------------------------------------------
+        // 4. BẢNG BỘ ĐỀ (bo_de) - Khóa chính ID
+        // ---------------------------------------------------------------------
+        String createBoDe = "CREATE TABLE IF NOT EXISTS bo_de ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "tieu_de TEXT, "
+                + "so_luong_cau INTEGER"
+                + ");";
+        db.execSQL(createBoDe);
+
+        // ---------------------------------------------------------------------
+        // 5. BẢNG CÂU HỎI (cau_hoi) - Khóa ngoại bo_de_id nối tới bo_de(id)
+        // ---------------------------------------------------------------------
+        String createCauHoi = "CREATE TABLE IF NOT EXISTS cau_hoi ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "bo_de_id INTEGER, "
+                + "noi_dung_cau_hoi TEXT, "
+                + "dap_an_dung TEXT, "
+                + "dap_an_sai_1 TEXT, "
+                + "dap_an_sai_2 TEXT, "
+                + "dap_an_sai_3 TEXT, "
+                + "FOREIGN KEY (bo_de_id) REFERENCES bo_de(id) ON DELETE CASCADE"
+                + ");";
+        db.execSQL(createCauHoi);
     }
 
-    // =========================================================================
-    // HÀM HỖ TRỢ CHÈN DỮ LIỆU MẪU BAN ĐẦU
-    // =========================================================================
     private void themVatPhamMau(SQLiteDatabase db, String tieuDe, String moTa) {
         ContentValues values = new ContentValues();
         values.put("tieu_de", tieuDe);
@@ -113,6 +140,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS vat_pham");
         db.execSQL("DROP TABLE IF EXISTS thu_muc");
+        db.execSQL("DROP TABLE IF EXISTS cau_hoi");
+        db.execSQL("DROP TABLE IF EXISTS bo_de");
+        db.execSQL("DROP TABLE IF EXISTS bo_cau_hoi");
         onCreate(db);
     }
 }
