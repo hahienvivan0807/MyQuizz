@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myquizz.R;
-import com.example.myquizz.SqlLite.DatabaseHelper;
+import com.example.myquizz.SqlLite.UserController;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class DangKyActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class DangKyActivity extends AppCompatActivity {
     private TextInputEditText emailInput, passwordInput, confirmPasswordInput;
     private Button registerButton;
     private TextView loginText;
-    private DatabaseHelper dbHelper;
+    private UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class DangKyActivity extends AppCompatActivity {
         // Kết nối Activity với layout activity_register.xml
         setContentView(R.layout.activity_register);
 
-        dbHelper = new DatabaseHelper(this);
+        userController = new UserController(this);
 
         AddViews();
         AddEvents();
@@ -69,7 +69,7 @@ public class DangKyActivity extends AppCompatActivity {
         }
 
         // Gọi hàm checkRegister để kiểm tra trùng và thêm tài khoản mới
-        boolean isSuccess = dbHelper.checkRegister(taiKhoan, matKhau);
+        boolean isSuccess = userController.checkRegister(taiKhoan, matKhau);
 
         if (isSuccess) {
             Toast.makeText(DangKyActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();

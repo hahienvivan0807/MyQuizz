@@ -12,14 +12,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myquizz.R;
-import com.example.myquizz.SqlLite.DatabaseHelper;
+import com.example.myquizz.SqlLite.UserController;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
     // Khai báo các ID
     TextInputEditText DN_emailInput, DN_passwordInput;
     Button btnDangNhap;
-    DatabaseHelper dbHelper;
+    UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        dbHelper = new DatabaseHelper(this);
+        userController = new UserController(this);
 
         AddViews();
     }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        boolean isMatch = dbHelper.checkLogin(taiKhoan, matKhau);
+        boolean isMatch = userController.checkLogin(taiKhoan, matKhau);
         if (isMatch) {
             Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
