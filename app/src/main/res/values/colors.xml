@@ -13,4 +13,12 @@
     <color name="text_secondary">#8B95A5</color>
     <color name="border_stroke">#E2E8F0</color>
     <color name="bg_main">#F8FAFC</color>
+
+    <!-- Quiz Screen Specific Colors -->
+    <color name="blue_primary">#2563EB</color>
+    <color name="blue_light">#EFF6FF</color>
+    <color name="blue_border">#2563EB</color>
+    <color name="bg_quiz_content">#F8FAFC</color>
+    <color name="gray_badge">#F1F5F9</color>
+    <color name="gray_radio_stroke">#CBD5E1</color>
 </resources>

@@ -64,6 +64,13 @@
     <string name="btn_add_more_question">Tạo thêm câu hỏi</string>
     <string name="btn_finish">Hoàn thành</string>
 
+    <!-- Trang Làm bài trắc nghiệm -->
+    <string name="title_quiz_test">Làm bài trắc nghiệm</string>
+    <string name="quiz_prev_question">Câu trước</string>
+    <string name="quiz_next_question">Câu tiếp theo</string>
+    <string name="quiz_submit">Nộp bài</string>
+    <string name="quiz_select_one_correct">Chọn một đáp án đúng.</string>
+
     <string name="recent_item1_title">Ôn tập Sinh học 10 · Tế bào</string>
     <string name="recent_item1_sub">15 câu hỏi · Khoa học tự nhiên</string>
     <string name="recent_item2_title">Tổng hợp ngữ pháp tiếng Anh</string>
