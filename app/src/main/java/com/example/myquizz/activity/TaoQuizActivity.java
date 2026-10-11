@@ -1,9 +1,9 @@
 package com.example.myquizz.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,11 +19,17 @@ public class TaoQuizActivity extends AppCompatActivity {
     private MaterialButton btnContinue;
 
     private boolean isManualMode = true; // Mặc định chọn tạo thủ công
+    private int currentThuMucId = 1;     // ID Thư mục nhận từ màn hình Chi tiết thư mục
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tao_quiz);
+
+        // Nhận ID thư mục từ Intent
+        if (getIntent() != null) {
+            currentThuMucId = getIntent().getIntExtra("THU_MUC_ID", 1);
+        }
 
         // Ánh xạ View
         btnBack = findViewById(R.id.btnBack);
@@ -48,13 +54,19 @@ public class TaoQuizActivity extends AppCompatActivity {
             cardImportDoc.setOnClickListener(v -> selectImportMode());
         }
 
-        // Nút Tiếp tục
+        // Nút Tiếp tục -> Chuyển sang màn hình tương ứng kèm THU_MUC_ID
         if (btnContinue != null) {
             btnContinue.setOnClickListener(v -> {
                 if (isManualMode) {
-                    Toast.makeText(this, "Chuyển sang màn hình Soạn Quiz Thủ Công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(TaoQuizActivity.this, NhapCauHoiActivity.class);
+                    intent.putExtra("THU_MUC_ID", currentThuMucId);
+                    startActivity(intent);
+                    finish();
                 } else {
-                    Toast.makeText(this, "Chuyển sang màn hình Import Tài Liệu", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(TaoQuizActivity.this, ImportTaiLieuActivity.class);
+                    intent.putExtra("THU_MUC_ID", currentThuMucId);
+                    startActivity(intent);
+                    finish();
                 }
             });
         }

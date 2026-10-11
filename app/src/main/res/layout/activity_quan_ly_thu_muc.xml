@@ -64,339 +64,146 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Nội dung chính có thể cuộn -->
-    <ScrollView
+    <!-- Khung chứa danh sách cuộn & Nút + Cố Định -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:layout_weight="1">
 
-        <LinearLayout
+        <!-- Nội dung chính có thể cuộn (Hiển thị toàn bộ thư mục) -->
+        <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="80dp">
+
+                <!-- Ô Tìm kiếm Thư mục -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSearchFolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/border_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_search"
+                            app:tint="@color/text_secondary" />
+
+                        <EditText
+                            android:id="@+id/etSearchFolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:hint="Tìm kiếm thư mục..."
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_secondary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tiêu đề mục: Thư mục của bạn -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/section_your_folders"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- RecyclerView Danh sách Thư mục (Nạp từ SQLite) -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewThuMuc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Layout Giao Diện Trống khi chưa có Thư mục nào -->
+                <LinearLayout
+                    android:id="@+id/layoutEmptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="40dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/bg_icon_soft"
+                        android:contentDescription="@null"
+                        android:padding="18dp"
+                        android:src="@drawable/ic_folder"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Chưa có thư mục nào"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Nhấn nút + ở góc dưới để tạo thư mục mới đầu tiên của bạn"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Nút + Nổi Cố Định Ở Góc Dưới Phải -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddFolder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="20dp">
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Thêm thư mục mới"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/primary"
+            app:elevation="6dp"
+            app:tint="@color/white" />
 
-            <!-- Tiêu đề mục: Thư mục của bạn -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/section_your_folders"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <!-- Danh sách Thư mục -->
-
-            <!-- Thư mục 1: Tiếng Anh -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardFolderEnglish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/border_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/bg_folder_icon_box"
-                        android:contentDescription="@null"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_folder"
-                        android:tint="@color/primary"
-                        app:tint="@color/primary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/folder_english"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/folder_english_sub"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_arrow_right"
-                        android:tint="@color/text_secondary"
-                        app:tint="@color/text_secondary" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Thư mục 2: Khoa học tự nhiên -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardFolderScience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/border_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/bg_folder_icon_box"
-                        android:contentDescription="@null"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_folder"
-                        android:tint="@color/primary"
-                        app:tint="@color/primary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/folder_science"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/folder_science_sub"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_arrow_right"
-                        android:tint="@color/text_secondary"
-                        app:tint="@color/text_secondary" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Thư mục 3: Ôn tập học kỳ -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardFolderTermExam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/border_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/bg_folder_icon_box"
-                        android:contentDescription="@null"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_folder"
-                        android:tint="@color/primary"
-                        app:tint="@color/primary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/folder_term_exam"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/folder_term_exam_sub"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_arrow_right"
-                        android:tint="@color/text_secondary"
-                        app:tint="@color/text_secondary" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Thư mục 4: Chưa phân loại -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardFolderUnclassified"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/border_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/bg_folder_icon_box"
-                        android:contentDescription="@null"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_folder"
-                        android:tint="@color/primary"
-                        app:tint="@color/primary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/folder_unclassified"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/folder_unclassified_sub"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_arrow_right"
-                        android:tint="@color/text_secondary"
-                        app:tint="@color/text_secondary" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Nút Xem tất cả -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSeeAll"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/btn_see_all"
-                android:textAllCaps="false"
-                android:textColor="@color/primary"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/white"
-                app:cornerRadius="25dp"
-                app:elevation="0dp"
-                app:strokeColor="@color/border_stroke"
-                app:strokeWidth="1dp" />
-
-            <!-- Nút + Nhập tài liệu -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnImportDocument"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginBottom="12dp"
-                android:text="@string/btn_import_document"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/primary"
-                app:cornerRadius="27dp"
-                app:elevation="0dp"
-                app:icon="@drawable/ic_add"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconTint="@color/white" />
-
-        </LinearLayout>
-    </ScrollView>
+    </FrameLayout>
 
     <!-- Thanh Điều Hướng Dưới Cùng (Bottom Navigation) -->
     <LinearLayout

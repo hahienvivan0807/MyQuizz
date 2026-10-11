@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Bỏ qua các file layout có chữ tam ở đầu
+app/src/main/res/layout/tam*

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.myquizz.model.User;
+
 public class UserController {
     private DatabaseHelper dbHelper;
 
@@ -44,5 +46,45 @@ public class UserController {
 
         long result = db.insert("users", null, values);
         return result != -1;
+    }
+
+    // Đăng ký tài khoản mới bằng đối tượng User
+    public boolean dangKy(User user) {
+        if (checkUserExists(user.getUsername())) {
+            return false;
+        }
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", user.getUsername());
+        values.put("password", user.getPassword());
+        values.put("email", user.getEmail());
+
+        long result = db.insert("users", null, values);
+        return result != -1;
+    }
+
+    // Lấy thông tin User theo username
+    public User layThongTinUser(String username) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ?", new String[]{username});
+        User user = null;
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            String pass = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+
+            user = new User(id, name, pass, email);
+        }
+        cursor.close();
+        return user;
+    }
+
+    // Hàm thêm tài khoản mẫu pinvutru@gmail.com với mật khẩu 123
+    public boolean themTaiKhoanMauPinVutru() {
+        User userPin = new User("pinvutru@gmail.com", "pinnopro", "pinvutru@gmail.com");
+        return dangKy(userPin);
     }
 }

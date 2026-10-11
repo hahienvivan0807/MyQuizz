@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // THÔNG TIN CƠ SỞ DỮ LIỆU
     // =========================================================================
     private static final String DATABASE_NAME = "MyQuiz.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 13; // Tăng version lên 13
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,12 +46,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ");";
         db.execSQL(createUsers);
 
-        // Chèn tài khoản admin mẫu
-        ContentValues admin = new ContentValues();
-        admin.put("username", "admin");
-        admin.put("password", "123");
-        admin.put("email", "admin@gmail.com");
-        db.insert("users", null, admin);
+        // Chèn tài khoản mẫu pinvutru@gmail.com (ID = 1)
+        ContentValues pinvutru = new ContentValues();
+        pinvutru.put("username", "pinvutru@gmail.com");
+        pinvutru.put("password", "123");
+        pinvutru.put("email", "pinvutru@gmail.com");
+        db.insert("users", null, pinvutru);
 
         // ---------------------------------------------------------------------
         // 2. BẢNG VẬT PHẨM (vat_pham)
@@ -74,34 +74,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         // ---------------------------------------------------------------------
-        // 3. BẢNG THƯ MỤC (thu_muc)
+        // 3. BẢNG THƯ MỤC (thu_muc) - Nối với users(id) qua Khóa ngoại user_id
         // ---------------------------------------------------------------------
         String createThuMuc = "CREATE TABLE IF NOT EXISTS thu_muc ("
                 + "ma_thu_muc INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "ten_thu_muc TEXT"
+                + "user_id INTEGER, "
+                + "ten_thu_muc TEXT, "
+                + "mo_ta_thu_muc TEXT, "
+                + "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
                 + ");";
         db.execSQL(createThuMuc);
 
-        Cursor cThuMuc = db.rawQuery("SELECT COUNT(*) FROM thu_muc", null);
-        if (cThuMuc != null) {
-            cThuMuc.moveToFirst();
-            if (cThuMuc.getInt(0) == 0) {
-                themThuMucMau(db, "Tiếng Anh");
-                themThuMucMau(db, "Khoa học tự nhiên");
-                themThuMucMau(db, "Ôn tập học kỳ");
-            }
-            cThuMuc.close();
-        }
-
         // ---------------------------------------------------------------------
-        // 4. BẢNG BỘ ĐỀ (bo_de) - Khóa chính ID
+        // 4. BẢNG BỘ ĐỀ (bo_de) - Có Khóa ngoại thu_muc_id tham chiếu thu_muc(ma_thu_muc)
         // ---------------------------------------------------------------------
         String createBoDe = "CREATE TABLE IF NOT EXISTS bo_de ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "thu_muc_id INTEGER, "
                 + "tieu_de TEXT, "
-                + "so_luong_cau INTEGER"
+                + "so_luong_cau INTEGER, "
+                + "FOREIGN KEY (thu_muc_id) REFERENCES thu_muc(ma_thu_muc) ON DELETE CASCADE"
                 + ");";
         db.execSQL(createBoDe);
+
+        Cursor cBoDe = db.rawQuery("SELECT COUNT(*) FROM bo_de", null);
+        if (cBoDe != null) {
+            cBoDe.moveToFirst();
+            if (cBoDe.getInt(0) == 0) {
+                themBoDeMau(db, 1, "Từ vựng: Cuộc sống hằng ngày", 15);
+                themBoDeMau(db, 1, "Ngữ pháp: Thì hiện tại đơn", 10);
+            }
+            cBoDe.close();
+        }
 
         // ---------------------------------------------------------------------
         // 5. BẢNG CÂU HỎI (cau_hoi) - Khóa ngoại bo_de_id nối tới bo_de(id)
@@ -126,10 +130,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("vat_pham", null, values);
     }
 
-    private void themThuMucMau(SQLiteDatabase db, String tenThuMuc) {
+    private void themBoDeMau(SQLiteDatabase db, int thuMucId, String tieuDe, int soLuongCau) {
         ContentValues values = new ContentValues();
-        values.put("ten_thu_muc", tenThuMuc);
-        db.insert("thu_muc", null, values);
+        values.put("thu_muc_id", thuMucId);
+        values.put("tieu_de", tieuDe);
+        values.put("so_luong_cau", soLuongCau);
+        db.insert("bo_de", null, values);
     }
 
     // =========================================================================

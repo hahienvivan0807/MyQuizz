@@ -27,7 +27,7 @@
     <string name="folder_unclassified_sub">0 tài liệu</string>
 
     <string name="btn_see_all">Xem tất cả</string>
-    <string name="btn_import_document">Nhập tài liệu</string>
+    <string name="btn_import_document">Thêm thư mục mới</string>
 
     <!-- Trang Chi tiết Thư mục Tiếng Anh -->
     <string name="back_all_folders">Tất cả thư mục</string>
